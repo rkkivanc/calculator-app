@@ -39,13 +39,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          if (displayText.length > 1) {
-                            displayText = displayText.substring(
-                              0,
-                              displayText.length - 1,
-                            );
-                          } else {
+                          if (displayText == "Error") {
                             displayText = "0";
+                          } else {
+                            if (displayText.length > 1) {
+                              displayText = displayText.substring(
+                                0,
+                                displayText.length - 1,
+                              );
+                            } else {
+                              displayText = "0";
+                            }
                           }
                         });
                       },
@@ -139,9 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          removeTrailingZero();
-                          displayText += "7";
-                          displayText = removeLeadingZero();
+                          onPressedNumber("7");
                         });
                       },
                       style: ProjectStyles.numberButtonStyle,
@@ -155,9 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          removeTrailingZero();
-                          displayText += "8";
-                          displayText = removeLeadingZero();
+                          onPressedNumber("8");
                         });
                       },
                       style: ProjectStyles.numberButtonStyle,
@@ -171,9 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          removeTrailingZero();
-                          displayText += "9";
-                          displayText = removeLeadingZero();
+                          onPressedNumber("9");
                         });
                       },
                       style: ProjectStyles.numberButtonStyle,
@@ -223,9 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          removeTrailingZero();
-                          displayText += "4";
-                          displayText = removeLeadingZero();
+                          onPressedNumber("4");
                         });
                       },
                       style: ProjectStyles.numberButtonStyle,
@@ -239,9 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          removeTrailingZero();
-                          displayText += "5";
-                          displayText = removeLeadingZero();
+                          onPressedNumber("5");
                         });
                       },
                       style: ProjectStyles.numberButtonStyle,
@@ -255,9 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          removeTrailingZero();
-                          displayText += "6";
-                          displayText = removeLeadingZero();
+                          onPressedNumber("6");
                         });
                       },
                       style: ProjectStyles.numberButtonStyle,
@@ -272,16 +264,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {
                         if (displayText.endsWith("-")) {
                           // Do nothing
-                        } else if (displayText.endsWith("+") ||
-                            displayText.endsWith("*") ||
-                            displayText.endsWith("/") ||
-                            displayText.endsWith("%")) {
+                        } else if (displayText.endsWith("+")) {
                           displayText = displayText.substring(
                             0,
                             displayText.length - 1,
                           );
                           setState(() {
                             displayText += "-";
+                          });
+                        } else if (displayText[0] == '0' &&
+                            displayText.length == 1) {
+                          setState(() {
+                            displayText = "-";
                           });
                         } else {
                           setState(() {
@@ -307,9 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          removeTrailingZero();
-                          displayText += "1";
-                          displayText = removeLeadingZero();
+                          onPressedNumber("1");
                         });
                       },
                       style: ProjectStyles.numberButtonStyle,
@@ -323,9 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          removeTrailingZero();
-                          displayText += "2";
-                          displayText = removeLeadingZero();
+                          onPressedNumber("2");
                         });
                       },
                       style: ProjectStyles.numberButtonStyle,
@@ -339,9 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          removeTrailingZero();
-                          displayText += "3";
-                          displayText = removeLeadingZero();
+                          onPressedNumber("3");
                         });
                       },
                       style: ProjectStyles.numberButtonStyle,
@@ -401,7 +389,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        if (!displayText.endsWith("0")) {
+                        if (displayText.endsWith("0") &&
+                            displayText.length > 1 &&
+                            (displayText[displayText.length - 2] == '+' ||
+                                displayText[displayText.length - 2] == '-' ||
+                                displayText[displayText.length - 2] == '*' ||
+                                displayText[displayText.length - 2] == '/' ||
+                                displayText[displayText.length - 2] == '%')) {
+                          // Do nothing
+                        } else {
                           setState(() {
                             displayText += "0";
                           });
@@ -418,9 +414,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (!displayText.contains(".")) {
-                          setState(() {
-                            displayText += ".";
-                          });
+                          if (displayText.endsWith("+") ||
+                              displayText.endsWith("-") ||
+                              displayText.endsWith("*") ||
+                              displayText.endsWith("/") ||
+                              displayText.endsWith("%")) {
+                            setState(() {
+                              displayText += "0.";
+                            });
+                          } else {
+                            setState(() {
+                              displayText += ".";
+                            });
+                          }
                         }
                       },
                       style: ProjectStyles.numberButtonStyle,
