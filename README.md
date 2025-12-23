@@ -1,16 +1,13 @@
-# calculator
+# 📱 Flutter Calculator App
 
-A new Flutter project.
+A clean, modern, and functional basic calculator application built with Flutter.
 
-## Getting Started
+## 🚀 Features
+* **Advanced Arithmetic:** Supports addition, subtraction, multiplication, division, **modulo (remainder), and percentage calculations.**
+* **Smart Clearing Options:** * **'C' Button:** Deletes only the last entry (character by character).
+    * **'AC' Button:** Resets the entire calculation and clears the screen.
+* **Flexible Layout:** Built with `Expanded` and `Flexible` widgets to ensure the calculator adapts to various screen dimensions without overflow.
+* **Stability:** Latest updates include several crash fixes and performance improvements.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📸 Preview
+<img width="384" height="861" alt="image" src="https://github.com/user-attachments/assets/2f1d7270-2d50-4dca-89f8-87190d6112e5" />
